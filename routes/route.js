@@ -11,7 +11,7 @@ import {
     SearchByIdController
 } from '../controllers/data.js';
 
-import { AddGradeController } from '../controllers/add.js';
+import { AddGradeController, AddRestaurantController } from '../controllers/add.js';
 
 router.get('/', HomeController);
 router.get('/data', DataController);
@@ -21,5 +21,6 @@ router.get('/data/id_search', SearchByIdController);
 router.get('/data/cuisines', AllCuisinesController);
 router.get('/data/boroughs', AllBoroughsController);
 router.post('/data/add_grade', AddGradeController);
+router.post('/data/add_restaurant', AddRestaurantController);
 
 export default router
