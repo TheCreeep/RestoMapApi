@@ -53,3 +53,25 @@ export const SearchController = async function (req, res) {
         res.status(500).send(err.message);
     }
 }
+export const AllCuisinesController = async function (req, res) {
+    try {
+        await RestaurantModel.distinct("cuisine")
+            .then((docs) => {
+                res.json(docs);
+            }
+            );
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
+export const AllBoroughsController = async function (req, res) {
+    try {
+        await RestaurantModel.distinct("borough")
+            .then((docs) => {
+                res.json(docs);
+            }
+            );
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
