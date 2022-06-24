@@ -6,7 +6,7 @@ import { DataController, SearchController } from '../controllers/data.js';
 
 router.get('/', HomeController);
 router.get('/data', DataController);
-router.get('/data/search', SearchController);
+router.get('/data/name_search', SearchController);
 
 
 export default router

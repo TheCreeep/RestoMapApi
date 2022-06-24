@@ -15,5 +15,4 @@ mongoose
         useUnifiedTopology: true, // options qui évitent des warnings inutiles
     })
 
-
 app.listen(3000);
