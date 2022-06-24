@@ -22,7 +22,8 @@ export const SearchByNameController = async function (req, res) {
                 cuisine: 1,
                 grades: 1,
                 fullAddress: { $concat: ['$address.building', ' ', '$address.street', ' ', '$address.zipcode'] },
-                fullName: { $concat: ['$name', ' (', { $toUpper: '$borough' }, ')'] }
+                fullName: { $concat: ['$name', ' (', { $toUpper: '$borough' }, ')'] },
+                restaurant_id: 1
             }
         }]).sort({ fullName: 1 })
             .then((docs) => {
@@ -34,6 +35,20 @@ export const SearchByNameController = async function (req, res) {
     }
 }
 
+export const SearchByIdController = async function (req, res) {
+    const id = req.query.id;
+    try {
+        await RestaurantModel.find({ "restaurant_id": id }).sort({ fullName: 1 })
+            .then((docs) => {
+                res.json(docs);
+            }
+            );
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
+
+
 export const SearchController = async function (req, res) {
     try {
         await RestaurantModel.aggregate([{ $match: req.query }, {
@@ -42,7 +57,8 @@ export const SearchController = async function (req, res) {
                 cuisine: 1,
                 grades: 1,
                 fullAddress: { $concat: ['$address.building', ' ', '$address.street', ' ', '$address.zipcode'] },
-                fullName: { $concat: ['$name', ' (', { $toUpper: '$borough' }, ')'] }
+                fullName: { $concat: ['$name', ' (', { $toUpper: '$borough' }, ')'] },
+                restaurant_id: 1
             }
         }]).sort({ fullName: 1 })
             .then((docs) => {
@@ -53,6 +69,9 @@ export const SearchController = async function (req, res) {
         res.status(500).send(err.message);
     }
 }
+
+
+
 export const AllCuisinesController = async function (req, res) {
     try {
         await RestaurantModel.distinct("cuisine")
@@ -64,6 +83,7 @@ export const AllCuisinesController = async function (req, res) {
         res.status(500).send(err.message);
     }
 }
+
 export const AllBoroughsController = async function (req, res) {
     try {
         await RestaurantModel.distinct("borough")
